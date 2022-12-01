@@ -75,3 +75,6 @@ Entendemos a importância de saber escolher usar Assets ou Network para carregar
 
 Warnings:
 Pode parecer apenas TOC, mas um código com Warnings é um código ineficiente. Aprendemos a identificar os Warnings no nosso código e retirá-los um a um, para melhorar o desempenho do nosso projeto.
+
+
+TESTE
