@@ -21,29 +21,29 @@ class _InitialScreenState extends State<InitialScreen> {
         // ignore: prefer_const_literals_to_create_immutables
         children: const [
           Task(
-            nome: 'Aprender Flutter',
-            foto: 'assets/images/mascote_flutter.png',
-            dificuldade: 4,
+            'Aprender Flutter',
+            'assets/images/mascote_flutter.png',
+            4,
           ),
           Task(
-            nome: 'Pegar Global no CS',
-            foto: 'assets/images/csgo.webp',
-            dificuldade: 5,
+            'Pegar Global no CS',
+            'assets/images/csgo.webp',
+            5,
           ),
           Task(
-            nome: 'Treino Academia',
-            foto: 'assets/images/logo_acad.png',
-            dificuldade: 2,
+            'Treino Academia',
+            'assets/images/logo_acad.png',
+            2,
           ),
           Task(
-            nome: 'Meditar',
-            foto: 'assets/images/meditacao.jpeg',
-            dificuldade: 1,
+            'Meditar',
+            'assets/images/meditacao.jpeg',
+            1,
           ),
           Task(
-            nome: 'Aprender Python',
-            foto: 'assets/images/python.jpg',
-            dificuldade: 2,
+            'Aprender Python',
+            'assets/images/python.jpg',
+            2,
           ),
           SizedBox(
             height: 70,

@@ -7,11 +7,7 @@ class Task extends StatefulWidget {
   final String foto;
   final int dificuldade;
 
-  const Task(
-      {Key? key,
-      required this.nome,
-      required this.foto,
-      required this.dificuldade})
+  const Task(this.nome, this.foto, this.dificuldade, {Key? key})
       : super(key: key);
 
   @override
@@ -65,12 +61,12 @@ class _TaskState extends State<Task> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: 200,
-                          child: Text(
-                            widget.nome,
-                            style: const TextStyle(fontSize: 18),
-                            overflow: TextOverflow.ellipsis,
-                          )),
+                            width: 200,
+                            child: Text(
+                              widget.nome,
+                              style: const TextStyle(fontSize: 18),
+                              overflow: TextOverflow.ellipsis,
+                            )),
                         Difficulty(
                           dificultyLevel: widget.dificuldade,
                         ),
