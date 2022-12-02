@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_3_0/components/task.dart';
 import 'package:flutter_3_0/data/task_inherited.dart';
 import 'package:flutter_3_0/screens/form_screen.dart';
 
@@ -15,19 +14,18 @@ class _InitialScreenState extends State<InitialScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.ads_click_sharp),
+        leading: Container(),
         title: const Text('Tarefas'),
       ),
       body: ListView(
-        // ignore: prefer_const_literals_to_create_immutables
-        children: TaskInherited.of(context)!.taskList,
+        children: TaskInherited.of(context).taskList,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const FormScreen(),
+              builder: (contextNew) => FormScreen(taskContext: context),
             ),
           );
         },

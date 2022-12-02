@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_3_0/components/task.dart';
 
 class TaskInherited extends InheritedWidget {
-  const TaskInherited({super.key, required this.child}) : super(child: child);
+  TaskInherited({
+    Key? key,
+    required Widget child,
+  }) : super(key: key, child: child);
 
-  final Widget child;
-
-  final List<Task> taskList = const [
+  final List<Task> taskList = [
     Task('Aprender Flutter', 'assets/images/mascote_flutter.png', 4),
     Task('Pegar Global no CS', 'assets/images/csgo.webp', 5),
     Task('Treino Academia', 'assets/images/logo_acad.png', 2),
@@ -18,8 +19,11 @@ class TaskInherited extends InheritedWidget {
     taskList.add(Task(name, photo, difficulty));
   }
 
-  static TaskInherited? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<TaskInherited>();
+  static TaskInherited of(BuildContext context) {
+    final TaskInherited? result =
+        context.dependOnInheritedWidgetOfExactType<TaskInherited>();
+    assert(result != null, 'No TaskInherited found in context');
+    return result!;
   }
 
   @override
