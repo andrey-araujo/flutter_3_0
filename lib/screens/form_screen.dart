@@ -133,6 +133,8 @@ class _FormScreenState extends State<FormScreen> {
                             content: Text('Salvando nova tarefa!'),
                           ),
                         );
+                        //não deve usar o Navigator.push para retornar à tela anterior porque isso vai criar um loop de telas armazenadas na pilha do Navigator.
+                        Navigator.pop(context);
                       }
                     },
                     child: const Text('Adicionar'),
