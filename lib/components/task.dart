@@ -30,7 +30,7 @@ class _TaskState extends State<Task> {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              color: Colors.blue,
+              color: Theme.of(context).primaryColor,
             ),
             height: 140,
           ),
@@ -65,12 +65,12 @@ class _TaskState extends State<Task> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                            width: 200,
-                            child: Text(
-                              widget.nome,
-                              style: const TextStyle(fontSize: 18),
-                              overflow: TextOverflow.ellipsis,
-                            )),
+                          width: 200,
+                          child: Text(
+                            widget.nome,
+                            style: const TextStyle(fontSize: 18),
+                            overflow: TextOverflow.ellipsis,
+                          )),
                         Difficulty(
                           dificultyLevel: widget.dificuldade,
                         ),
