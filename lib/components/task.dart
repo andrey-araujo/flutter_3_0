@@ -3,23 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_3_0/components/difficulty.dart';
 
 class Task extends StatefulWidget {
+  Task(this.nome, this.foto, this.dificuldade, {Key? key}) : super(key: key);
   final String nome;
   final String foto;
   final int dificuldade;
-
-  const Task(
-      {Key? key,
-      required this.nome,
-      required this.foto,
-      required this.dificuldade})
-      : super(key: key);
+  final int maestria = 0;
+  int nivel = 0;
 
   @override
   State<Task> createState() => _TaskState();
 }
 
 class _TaskState extends State<Task> {
-  int nivel = 0;
+  bool assetOrNetwork() {
+    if (widget.foto.contains('http')) {
+      return false;
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class _TaskState extends State<Task> {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              color: Colors.blue,
+              color: Theme.of(context).primaryColor,
             ),
             height: 140,
           ),
@@ -54,10 +55,15 @@ class _TaskState extends State<Task> {
                       height: 100,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(4),
-                        child: Image.asset(
-                          widget.foto,
-                          fit: BoxFit.cover,
-                        ),
+                        child: assetOrNetwork()
+                            ? Image.asset(
+                                widget.foto,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                widget.foto,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                     Column(
@@ -82,7 +88,7 @@ class _TaskState extends State<Task> {
                       child: ElevatedButton(
                           onPressed: () {
                             setState(() {
-                              nivel++;
+                              widget.nivel++;
                             });
                             // print(nivel);
                           },
@@ -112,7 +118,7 @@ class _TaskState extends State<Task> {
                       child: LinearProgressIndicator(
                         color: Colors.white,
                         value: (widget.dificuldade > 0)
-                            ? (nivel / widget.dificuldade) / 10
+                            ? (widget.nivel / widget.dificuldade) / 10
                             : 1,
                       ),
                     ),
@@ -120,7 +126,7 @@ class _TaskState extends State<Task> {
                   Padding(
                     padding: const EdgeInsets.all(12),
                     child: Text(
-                      'Nível: $nivel',
+                      'Nível: ${widget.nivel}',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,

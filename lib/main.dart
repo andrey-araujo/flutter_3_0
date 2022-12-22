@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_3_0/data/task_inherited.dart';
 import 'package:flutter_3_0/screens/initial_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
       ),
-      home: const InitialScreen(),
+      home: TaskInherited(child: const InitialScreen()),
     );
   }
 }

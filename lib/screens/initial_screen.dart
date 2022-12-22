@@ -1,66 +1,79 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_3_0/components/task.dart';
+import 'package:flutter_3_0/data/task_inherited.dart';
+import 'package:flutter_3_0/screens/form_screen.dart';
 
 class InitialScreen extends StatefulWidget {
-const InitialScreen({ Key? key }) : super(key: key);
+  const InitialScreen({Key? key}) : super(key: key);
 
   @override
   State<InitialScreen> createState() => _InitialScreenState();
 }
 
 class _InitialScreenState extends State<InitialScreen> {
-  bool opacidade = true;
+  
+  int level = 0;
+
+  void updateLevel() {
+    level = TaskInherited.of(context)
+        .taskList
+        .map((task) => task.dificuldade * task.maestria)
+        .reduce((a, b) => a + b);
+  }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: const Icon(Icons.ads_click_sharp),
-          title: const Text('Tarefas'),
-        ),
-        body: AnimatedOpacity(
-          opacity: opacidade ? 1 : 0,
-          duration: const Duration(milliseconds: 800),
-          child: ListView(
-            // ignore: prefer_const_literals_to_create_immutables
-            children: const [
-              Task(
-                nome: 'Aprender Flutter',
-                foto: 'assets/images/mascote_flutter.png',
-                dificuldade: 4,
+      appBar: AppBar(
+          toolbarHeight: 80,
+          title: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Text('Tasks'),
+                  IconButton(
+                    icon: const Icon(Icons.replay_circle_filled_sharp),
+                    onPressed: () {
+                      setState(() {
+                        updateLevel();
+                      });
+                    },
+                  )
+                ],
               ),
-              Task(
-                nome: 'Pegar Global no CS',
-                foto: 'assets/images/csgo.webp',
-                dificuldade: 5,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const SizedBox(
+                    width: 200,
+                    child: LinearProgressIndicator(
+                      color: Colors.white,
+                      value: 1,
+                    ),
+                  ),
+                  Text('Level: $level')
+                ],
               ),
-              Task(
-                nome: 'Treino Academia',
-                foto: 'assets/images/logo_acad.png',
-                dificuldade: 2,
-              ),
-              Task(
-                nome: 'Meditar',
-                foto: 'assets/images/meditacao.jpeg',
-                dificuldade: 1,
-              ),
-              Task(
-                nome: 'Aprender Python',
-                foto: 'assets/images/python.jpg',
-                dificuldade: 2,
-              ),
-              SizedBox(height: 70,),
             ],
+          )
+          // leading: Container(),
+          // title: const Text('Colocar a barra aqui'),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              opacidade = !opacidade;
-            });
-          },
-          child: const Icon(Icons.remove_red_eye),
-        ),
-      );
+      body: ListView(
+        padding: const EdgeInsets.only(top: 8, bottom: 70),
+        children: TaskInherited.of(context).taskList,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (contextNew) => FormScreen(taskContext: context),
+            ),
+          );
+        },
+        child: const Icon(Icons.add_task),
+      ),
+    );
   }
 }
