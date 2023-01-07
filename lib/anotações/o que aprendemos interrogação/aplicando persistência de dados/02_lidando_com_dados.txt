@@ -1,0 +1,18 @@
+- Path/Caminho: Para abrir/criar um banco de dados, precisamos saber qual
+    o caminho do arquivo; esse caminho é o endereço onde nosso arquivo foi
+    salvo no dispositivo. Cada dispositivo possui um caminho diferente e, para
+    sabermos qual o caminho padrão, utilizamos o pacote path.
+
+- Estrutura de Dados: Quando montamos nosso banco de dados, estamos
+    definindo/delimitando seu formato, quais serão suas características, sua
+    quantidade de informação para cada dado salvo. No nosso caso, nossos
+    dados precisam de nome, dificuldade, imagem (e quem sabe nível). Para
+    isso, criamos uma variável do tipo string e nela usamos a linguagem SQ
+    L para produzir um banco de dados que será lido pelo SQFLite.
+
+- DAO: Seguindo as boas práticas, implementamos uma forma de separação
+    entre o banco de dados e o código em Flutter, garantindo que os método
+    s que se comunicam com o SQL sejam separados de quaisquer outros
+    métodos que não interagem com o banco. O Objeto de Acesso a Dados
+    (DAO) é considerado uma interface que integra e ao mesmo tempo divide o
+    mundo do Flutter e o mundo do Back-End.
