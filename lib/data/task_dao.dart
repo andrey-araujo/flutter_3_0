@@ -51,6 +51,17 @@ class TaskDao {
     return toList(result);
   }
 
+  List<Task> toList(List<Map<String, dynamic>> mapaDeTarefas) {
+    print('convertendo toList:');
+    final List<Task> tarefas = [];
+    for (Map<String, dynamic> linha in mapaDeTarefas) {
+      final Task tarefa = Task(linha[_name], linha[_image], linha[_difficulty]);
+      tarefas.add(tarefa);
+    }
+    print('Lista de tarefas $tarefas');
+    return tarefas;
+  }
+
   Future<List<Task>> find(String nomeDaTarefa) async {
     print('acessando find: ');
     final Database bancoDeDados = await getDatabase();
@@ -63,16 +74,13 @@ class TaskDao {
     return toList(result);
   }
 
-  delete(String nomeDaTarefa) async {}
-
-  List<Task> toList(List<Map<String, dynamic>> mapaDeTarefas) {
-    print('convertendo toList:');
-    final List<Task> tarefas = [];
-    for (Map<String, dynamic> linha in mapaDeTarefas) {
-      final Task tarefa = Task(linha[_name], linha[_image], linha[_difficulty]);
-      tarefas.add(tarefa);
-    }
-    print('Lista de tarefas $tarefas');
-    return tarefas;
+  delete(String nomeDaTarefa) async {
+    print('deletando tarefa: $nomeDaTarefa');
+    final Database bancoDeDados = await getDatabase();
+    return bancoDeDados.delete(
+      _tablename,
+      where: '$_name = ?',
+      whereArgs: [nomeDaTarefa],
+    );
   }
 }
