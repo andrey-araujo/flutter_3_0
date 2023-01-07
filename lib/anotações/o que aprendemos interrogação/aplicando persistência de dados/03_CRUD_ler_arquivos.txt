@@ -1,0 +1,16 @@
+- CRUD: Operações de manipulação para banco de dados, CRUD é um
+    acrônimo vindo do inglês: Create, Read, Update, Delete - que traduzido
+    significa respectivamente, Criar, Ler, Atualizar e Deletar. Aprendemos os
+    conceitos de CRUD e como eles funcionam no pacote sqflite.
+
+- Buscar Informações: Iniciamos nossa implementação do CRUD pelo Read
+    (Leitura) e vimos como implementar as funções find() e findAll() que
+    buscam informações do banco de dados através do método query()
+    disponível para objetos do tipo Database, importado do pacote sqflite.
+
+- Transformar Objetos: Notamos a necessidade de trabalhar com objetos do
+    tipo Map<String,dynamic> e do tipo List<Task> quando nos envolvemos
+    com o banco de dados. Assim, para que nosso projeto possa se comunicar
+    com o banco de dados, aprendemos a transformar objetos do tipo mapa
+    - vindo do banco de dados - para objetos do tipo Lista de Tarefas - usados
+    para construir a tela.
