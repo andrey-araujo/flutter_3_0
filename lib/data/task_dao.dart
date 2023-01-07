@@ -13,7 +13,34 @@ class TaskDao {
   static const String _difficulty = 'difficulty';
   static const String _image = 'image';
 
-  save(Task tarefa) async {}
+  save(Task tarefa) async {
+    print('Iniciando o ave: ');
+    final Database bancoDeDados = await getDatabase();
+    var itemExists = await find(tarefa.nome);
+    Map<String, dynamic> taskMap = toMap(tarefa);
+    if (itemExists.isEmpty) {
+      print('a tarefa não existia. ');
+      return await bancoDeDados.insert(_tablename, taskMap);
+    } else {
+      print('A tarefa já existe. ');
+      return await bancoDeDados.update(
+        _tablename,
+        taskMap,
+        where: '$_name = ?',
+        whereArgs: [tarefa.nome],
+      );
+    }
+  }
+
+  Map<String, dynamic> toMap(Task tarefa) {
+    print('Convertendo Tarefa em Map: ');
+    final Map<String, dynamic> mapaDetarefas = Map();
+    mapaDetarefas[_name] = tarefa.nome;
+    mapaDetarefas[_difficulty] = tarefa.dificuldade;
+    mapaDetarefas[_image] = tarefa.foto;
+    print('Map de tarefas é $mapaDetarefas');
+    return mapaDetarefas;
+  }
 
   Future<List<Task>> findAll() async {
     print('Acessando o findall');
@@ -22,17 +49,6 @@ class TaskDao {
         await bancoDeDados.query(_tablename);
     print('procurando dados no banco de dados... encontrado: $result');
     return toList(result);
-  }
-
-  List<Task> toList(List<Map<String, dynamic>> mapaDeTarefas) {
-    print('convertendo toList:');
-    final List<Task> tarefas = [];
-    for (Map<String, dynamic> linha in mapaDeTarefas) {
-      final Task tarefa = Task(linha[_name], linha[_image], linha[_difficulty]);
-      tarefas.add(tarefa);
-    }
-    print('Lista de tarefas $tarefas');
-    return tarefas;
   }
 
   Future<List<Task>> find(String nomeDaTarefa) async {
@@ -48,4 +64,15 @@ class TaskDao {
   }
 
   delete(String nomeDaTarefa) async {}
+
+  List<Task> toList(List<Map<String, dynamic>> mapaDeTarefas) {
+    print('convertendo toList:');
+    final List<Task> tarefas = [];
+    for (Map<String, dynamic> linha in mapaDeTarefas) {
+      final Task tarefa = Task(linha[_name], linha[_image], linha[_difficulty]);
+      tarefas.add(tarefa);
+    }
+    print('Lista de tarefas $tarefas');
+    return tarefas;
+  }
 }
