@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_3_0/components/task.dart';
+import 'package:flutter_3_0/data/task_dao.dart';
 import 'package:flutter_3_0/data/task_inherited.dart';
 import 'package:flutter_3_0/screens/form_screen.dart';
 
@@ -10,7 +12,6 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
-  
   int level = 0;
 
   void updateLevel() {
@@ -24,6 +25,7 @@ class _InitialScreenState extends State<InitialScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          leading: Container(),
           toolbarHeight: 80,
           title: Column(
             children: [
@@ -59,9 +61,36 @@ class _InitialScreenState extends State<InitialScreen> {
           // leading: Container(),
           // title: const Text('Colocar a barra aqui'),
           ),
-      body: ListView(
+      body: Padding(
         padding: const EdgeInsets.only(top: 8, bottom: 70),
-        children: TaskInherited.of(context).taskList,
+        child: FutureBuilder<List<Task>>(
+            future: TaskDao().findAll(),
+            builder: (context, snapshot) {
+              List<Task>? items = snapshot.data;
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                  // TODO: Handle this case.
+                  break;
+                case ConnectionState.waiting:
+                  // TODO: Handle this case.
+                  break;
+                case ConnectionState.active:
+                  // TODO: Handle this case.
+                  break;
+                case ConnectionState.done:
+                  if (snapshot.hasData && items != null) {
+                    if (items.isNotEmpty) {
+                      return ListView.builder(
+                          itemCount: items.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final Task tarefa = items[index];
+                            return tarefa;
+                          });
+                    }
+                  }
+                  break;
+              }
+            }),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
