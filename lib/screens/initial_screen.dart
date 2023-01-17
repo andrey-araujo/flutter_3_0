@@ -26,6 +26,13 @@ class _InitialScreenState extends State<InitialScreen> {
     return Scaffold(
       appBar: AppBar(
           leading: Container(),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  setState(() {});
+                },
+                icon: const Icon(Icons.refresh)),
+          ],
           toolbarHeight: 80,
           title: Column(
             children: [
@@ -133,7 +140,9 @@ class _InitialScreenState extends State<InitialScreen> {
             MaterialPageRoute(
               builder: (contextNew) => FormScreen(taskContext: context),
             ),
-          );
+          ).then((value) => setState(() {
+                print('Recarregando a tela inicial');
+              }));
         },
         child: const Icon(Icons.add_task),
       ),
