@@ -84,7 +84,6 @@ class _InitialScreenState extends State<InitialScreen> {
                       ],
                     ),
                   );
-                  break;
                 case ConnectionState.waiting:
                   return Center(
                     child: Column(
@@ -94,7 +93,6 @@ class _InitialScreenState extends State<InitialScreen> {
                       ],
                     ),
                   );
-                  break;
                 case ConnectionState.active:
                   return Center(
                     child: Column(
@@ -104,7 +102,6 @@ class _InitialScreenState extends State<InitialScreen> {
                       ],
                     ),
                   );
-                  break;
                 case ConnectionState.done:
                   if (snapshot.hasData && items != null) {
                     if (items.isNotEmpty) {
@@ -117,6 +114,8 @@ class _InitialScreenState extends State<InitialScreen> {
                     }
                     return Center(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: const [
                           Icon(Icons.error_outline, size: 110),
                           Text(
@@ -128,7 +127,6 @@ class _InitialScreenState extends State<InitialScreen> {
                     );
                   }
                   return const Text('Erro ao carregar tarefas');
-                  break;
               }
               return const Text('Erro desconhecido');
             }),
